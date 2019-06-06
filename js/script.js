@@ -1,26 +1,32 @@
 const canvas = document.getElementById("canvas");
 const colorChoices = document.getElementsByClassName("color-choice");
-var currentColor = "#DFC1D4";
-var currentSize = 4;
+var canvasWidth = $("#canvasWidth").val();
+var canvasHeight = $("#canvasHeight").val();
+var brushColor = "#DFC1D4";
+var brushSize = 4;
 var zindex = 0;
 
 function changeColor(eventObject) {
-  currentColor = $(this).css("background-color");
-  $("#header").css("background-color", currentColor);
-  $("#canvas").css("border", `8px solid ${currentColor}`);
+  endEraserMode();
+  brushColor = $(this).css("background-color");
+  $("#header").css("background-color", brushColor);
+  $("#canvas").css("border", `8px solid ${brushColor}`);
 }
 $(".color-choice").click(changeColor);
 
 function drawPoint(x, y) {
-  canvas.innerHTML += `<span class='dot' style='left:${x -
-    currentSize / 2}px;top:${y -
-    currentSize /
-      2}px; width:${currentSize}px; height:${currentSize}px; background-color:${currentColor}';z-index:${zindex}></span>`;
-  zindex--;
+  if (x > 3 && y > 3 && x < (canvasWidth -3) && y < (canvasHeight-3)){
+    canvas.innerHTML += `<span class='dot' style='left:${x -
+      brushSize / 2}px;top:${y -
+      brushSize /
+        2}px; width:${brushSize}px; height:${brushSize}px; background-color:${brushColor}';z-index:${zindex}></span>`;
+    zindex--;
+  }
 }
 function startPainting(eventObject) {
-  canvas.addEventListener("mousemove", keepPainting);
   drawPoint(eventObject.layerX, eventObject.layerY);
+  canvas.addEventListener("mousemove", keepPainting);
+  document.addEventListener("mouseup", stopPainting);
 }
 function keepPainting(eventObject) {
   drawPoint(eventObject.layerX, eventObject.layerY);
@@ -29,38 +35,40 @@ function stopPainting(eventObject) {
   canvas.removeEventListener("mousemove", keepPainting);
 }
 canvas.addEventListener("mousedown", startPainting);
-document.addEventListener("mouseup", stopPainting);
+
 document.getElementById("clear").addEventListener("click", () => {
   $("#canvas").empty();
 });
 
 function enLargeText() {
-  if (currentSize < 10) currentSize++;
+  if (brushSize < 10) brushSize++;
 }
 function reduceText() {
-  if (currentSize > 2) currentSize--;
+  if (brushSize > 2) brushSize--;
 }
 $("#Plus").click(enLargeText);
 $("#Minus").click(reduceText);
 
 function update(jscolor) {
-  currentColor = "#" + jscolor;
-  $("#header").css("background-color", currentColor);
-  $("#canvas").css("border", `8px solid ${currentColor}`);
+  brushColor = "#" + jscolor;
+  $("#header").css("background-color", brushColor);
+  $("#canvas").css("border", `8px solid ${brushColor}`);
 }
 
 function updateCanvasWidth() {
   var ratio = $(this).val() / parseInt($(".row").css("width"));
   var val = $(this).val();
-  if (val < 100) $(".row").css("width", `100px`);
-  else if (val > 1500) $(".row").css("width", `1500px`);
-  else if (!isNaN(val)) $(".row").css("width", `${val}px`);
+  if (val < 200) canvasWidth = 200;
+  else if (val > 1500) canvasWidth = 1500;
+  else if (!isNaN(val)) canvasWidth = val;
+  $("#canvas").css("width", `${canvasWidth}`);
 }
 function updateCanvasHeight() {
   var val = $(this).val();
-  if (val < 100) $("#canvas").css("height", `100px`);
-  else if (val > 1500) $("#canvas").css("height", `1500px`);
-  else if (!isNaN(val)) $("#canvas").css("height", `${val}px`);
+  if (val < 100) canvasHeight = 100;
+  else if (val > 800) canvasHeight = 800;
+  else if (!isNaN(val)) canvasHeight = val;
+  $("#canvas").css("height", `${canvasHeight}`);
 }
 $("#canvasWidth").on("change", updateCanvasWidth);
 $("#canvasHeight").on("change", updateCanvasHeight);
@@ -68,21 +76,26 @@ function eraseDot(eventObject) {
   $(this).remove();
 }
 function startErasing() {
-  $("#canvas span").on("mousemove", keepErasing);
+  $("#canvas span").on("mousemove", eraseDot);
+  $(document).on("mouseup", stopErasing);
 }
-function keepErasing() {}
 function stopErasing() {
-  $("#canvas span").off("mousemove", keepErasing);
+  $("#canvas span").off("mousemove", eraseDot);
+  $(document).off("mouseup", stopErasing);
 }
 function endEraserMode() {
   canvas.addEventListener("mousedown", startPainting);
-  $("#canvas span").off("mousedown", startErasing);
+  $("#canvas").off("mousedown", startErasing);
 }
 function startEraserMode() {
-  console.log("started erasing");
   canvas.removeEventListener("mousedown", startPainting);
-  $("#canvas span").on("mousedown", startErasing);
-  $("#canvas span").on("mousemove", stopErasing);
+  $("#canvas span").on("mousedown", eraseDot);
+  $("#canvas").on("mousedown", startErasing);
 }
 $("#eraser").on("click", startEraserMode);
 $("#pen").on("click", endEraserMode);
+
+
+$("#canvasWidth").trigger("change");
+$("#canvasWidth").trigger("change");
+
