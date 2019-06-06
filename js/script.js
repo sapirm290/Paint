@@ -1,19 +1,13 @@
 const canvas = document.getElementById("canvas");
-var currentColor = "silver";
-var currentSize = 10;
-var isDrawing = false;
+const colorChoices = document.getElementsByClassName("color-choice");
+var currentColor = "#DFC1D4";
+var currentSize = 4;
+
 function changeColor(eventObject) {
-  currentColor = lastWord(eventObject.target.className);
-  canvas.style.border = `5px solid ${currentColor}`;
+  currentColor = $(this).css("background-color");
 }
-function lastWord(words) {
-  var n = words.split(" ");
-  return n[n.length - 1];
-}
-var colorChoices = document.getElementsByClassName("color-choice");
-for (let index = 0; index < colorChoices.length; index++) {
-  colorChoices[index].addEventListener("click", changeColor);
-}
+$(".color-choice").click(changeColor);
+
 function drawPoint(x, y) {
   canvas.innerHTML += `<span class='dot' style='left:${x -
     currentSize / 2}px;top:${y -
@@ -22,20 +16,16 @@ function drawPoint(x, y) {
 }
 function startPainting(eventObject) {
   canvas.addEventListener("mousemove", keepPainting);
-  var x = eventObject.layerX;
-  var y = eventObject.layerY;
-  drawPoint(x, y);
+  drawPoint(eventObject.layerX, eventObject.layerY);
 }
 function keepPainting(eventObject) {
-  var x = eventObject.layerX;
-  var y = eventObject.layerY;
-  drawPoint(x, y);
+  drawPoint(eventObject.layerX, eventObject.layerY);
 }
 function stopPainting(eventObject) {
   canvas.removeEventListener("mousemove", keepPainting);
 }
 canvas.addEventListener("mousedown", startPainting);
-document.body.addEventListener("mouseup", stopPainting);
+document.addEventListener("mouseup", stopPainting);
 document.getElementById("clear").addEventListener("click", () => {
   $("#canvas").empty();
 });
@@ -54,7 +44,7 @@ function update(jscolor) {
 }
 
 function updateCanvasWidth() {
-  var ratio =  $(this).val()/parseInt($(".row").css("width"))  ;
+  var ratio = $(this).val() / parseInt($(".row").css("width"));
   var val = $(this).val();
   if (val < 100) $(".row").css("width", `100px`);
   else if (val > 1500) $(".row").css("width", `1500px`);

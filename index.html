@@ -9,42 +9,50 @@
   <link rel="stylesheet"
     href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
     integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
   <div class="container">
-    <div class="row" id="canvas">
+    <div class="row tools ">
+
+
+      <br>
+
+
+      <div class="col-sm tool"></div>
+      <div class="col-sm tool"></div>
+      <div class="col-sm tool"></div>
+      <div class="col-sm tool"></div>
+      <div class="col-sm tool"></div>
+      <div class="col-sm tool"> <button id="Plus">+</button></div>
+      <div class="col-sm tool"> <button id="Minus">-</button></div>
+      <div class="col-sm tool"> <button id="clear">Clear canvas</button></div>
+      <div class="col-sm tool"> <label for="canvasWidth">width</label>
+        <input type="number" id="canvasWidth" value="500"></div>
+      <div class="col-sm tool"> <label for="canvasHeight">Height</label>
+        <input type="number" id="canvasHeight" value="500"><br></div>
+      <div class="col-sm tool"></div>
     </div>
+    <div class="row p-2" id='header'></div>
 
-    <div class="row">
-      <div class="col color-choice silver">
-
+    <div class="row justify-content-center p-3" id="canvasWrapper">
+      <div class="col-auto">
+        <div class="row" id="canvas"></div>
+        <div class="row justify-content-center">
+          <h2>Let your art out</h2>
+        </div>
       </div>
-      <div class="col color-choice blue">
-
-      </div>
-      <div class="col color-choice red">
-
-      </div>
-      <div class="col color-choice green">
-
-      </div>
-
-      <div class="col color-choice teal">
-
-      </div>
-
-      <input class="jscolor" onchange="update(this.jscolor)" value="cc66ff">
     </div>
-    <div class="row">
-      <button id="clear">Clear canvas</button>
-      <button id="Plus">+</button>
-      <button id="Minus">-</button><br>
-      <label for="canvasWidth">width</label>
-      <input type="number" id="canvasWidth">
-      <label for="canvasHeight">Height</label>
-      <input type="number" id="canvasHeight"><br>
+    <div class="row" id="colorPallete">
+      <div class="col color-choice" style="background-color: #DFC1D4"></div>
+      <div class="col color-choice" style="background-color: #E6D91C"></div>
+      <div class="col color-choice" style="background-color: #727DC7"></div>
+      <div class="col color-choice" style="background-color: #E1543D"></div>
+      <div class="col color-choice" style="background-color: #397D49"></div>
+     <input class="jscolor col color-choice mx-2"
+          onchange="update(this.jscolor)" value="cc66ff">
 
     </div>
   </div>

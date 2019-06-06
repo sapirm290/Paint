@@ -1,47 +1,37 @@
+#header {
+  background-color: #727dc7;
+}
+.tools .tool {
+  background-color: #999999;
+  height: 35px;
+  border: 1px solid #bbbbbb;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+#canvasWrapper {
+  border: 1px solid #bbbbbb;
+}
 #canvas {
-    height: 500px;
-    border: 5px solid #dedede;
-    position: relative;
+  display: inline-block;
+  box-sizing: content-box;
+  width: 500px;
+  height: 500px;
+  border: 8px solid #727dc7;
+  position: relative;
+  border-radius: 5px;
 }
-
-.row {
-    width: 500px;
-    box-sizing: content-box;
+h2{
+    font-family: 'Poppins', sans-serif;
 }
-
 .color-choice {
-    height: 30px;
-    -webkit-box-shadow: 0 10px 6px -6px #777;
-	-moz-box-shadow: 0 10px 6px -6px #777;
-	box-shadow: 0 10px 6px -6px #777;
+  height: 30px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
 }
-.color-choice button{
-    height: 30px;
-
-}
-
-.blue {
-    background-color: blue;
-}
-
-.red {
-    background-color: red;
-}
-
-.silver {
-    background-color: silver;
-}
-
-.green {
-    background-color: green;
-}
-
-.beige {
-    background-color: beige;
-}
-
-.teal{
-    background-color: teal;
+input.color-choice{
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
 }
 .dot{
     position: absolute;
