@@ -24,8 +24,8 @@
       <div class="col-sm tool"></div>
       <div class="col-sm tool"></div>
       <div class="col-sm tool"></div>
-      <div class="col-sm tool"></div>
-      <div class="col-sm tool"></div>
+      <div class="col-sm tool"><button id="pen">Pen</button></div>
+      <div class="col-sm tool"><button id="eraser">Eraser</button></div>     
       <div class="col-sm tool"> <button id="Plus">+</button></div>
       <div class="col-sm tool"> <button id="Minus">-</button></div>
       <div class="col-sm tool"> <button id="clear">Clear canvas</button></div>
@@ -35,7 +35,7 @@
         <input type="number" id="canvasHeight" value="500"><br></div>
       <div class="col-sm tool"></div>
     </div>
-    <div class="row p-2" id='header'></div>
+    <div class="row p-2" id='header' style="background-color: #727dc7;"></div>
 
     <div class="row justify-content-center p-3" id="canvasWrapper">
       <div class="col-auto">
@@ -51,8 +51,7 @@
       <div class="col color-choice" style="background-color: #727DC7"></div>
       <div class="col color-choice" style="background-color: #E1543D"></div>
       <div class="col color-choice" style="background-color: #397D49"></div>
-     <input class="jscolor col color-choice mx-2"
-          onchange="update(this.jscolor)" value="cc66ff">
+      <input class="jscolor col color-choice mx-2" onchange="update(this.jscolor)" value="cc66ff">
 
     </div>
   </div>
