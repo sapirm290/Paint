@@ -1,0 +1,50 @@
+#canvas {
+    height: 500px;
+    border: 5px solid #dedede;
+    position: relative;
+}
+
+.row {
+    width: 500px;
+    box-sizing: content-box;
+}
+
+.color-choice {
+    height: 30px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+	-moz-box-shadow: 0 10px 6px -6px #777;
+	box-shadow: 0 10px 6px -6px #777;
+}
+.color-choice button{
+    height: 30px;
+
+}
+
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
+}
+
+.silver {
+    background-color: silver;
+}
+
+.green {
+    background-color: green;
+}
+
+.beige {
+    background-color: beige;
+}
+
+.teal{
+    background-color: teal;
+}
+.dot{
+    position: absolute;
+    display: inline-block;
+    border-radius: 50%;
+}
