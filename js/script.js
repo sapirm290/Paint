@@ -57,19 +57,31 @@ function update(jscolor) {
 }
 
 function updateCanvasWidth() {
-  var ratio = $(this).val() / parseInt($(".row").css("width"));
+  var oldWidth =  canvasWidth;
   var val = $(this).val();
   if (val < 200) canvasWidth = 200;
   else if (val > 1500) canvasWidth = 1500;
   else if (!isNaN(val)) canvasWidth = val;
+  var ratio = canvasWidth/oldWidth;
+  function adjustWidth(){
+    $(this).css("left",parseInt($(this).css("left"))*ratio);
+  }
+  $("#canvas span").each(adjustWidth);
   $("#canvas").css("width", `${canvasWidth}`);
   $(this).val(canvasWidth);
 }
 function updateCanvasHeight() {
+  var oldHeight =  canvasHeight;
+
   var val = $(this).val();
   if (val < 100) canvasHeight = 100;
   else if (val > 800) canvasHeight = 800;
   else if (!isNaN(val)) canvasHeight = val;
+  var ratio = canvasHeight/oldHeight;
+  function adjustHeight(){
+    $(this).css("top",parseInt($(this).css("top"))*ratio);
+  }
+  $("#canvas span").each(adjustHeight);
   $("#canvas").css("height", `${canvasHeight}`);
   $(this).val(canvasHeight);
 }
@@ -89,11 +101,15 @@ function stopErasing() {
 function endEraserMode() {
   canvas.addEventListener("mousedown", startPainting);
   $("#canvas").off("mousedown", startErasing);
+  $(this).addClass("pressed");
+  $("#eraser").removeClass("pressed");
 }
 function startEraserMode() {
   canvas.removeEventListener("mousedown", startPainting);
   $("#canvas span").on("mousedown", eraseDot);
   $("#canvas").on("mousedown", startErasing);
+  $(this).addClass("pressed");
+  $("#pen").removeClass("pressed");
 }
 $("#eraser").on("click", startEraserMode);
 $("#pen").on("click", endEraserMode);

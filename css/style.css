@@ -1,13 +1,14 @@
 .tools .tool {
-    color: #ffffff;
-    background-color: #999999;
+  color: #ffffff;
+  background-color: #999999;
   border: 1px solid #bbbbbb;
   height: 35px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 5px;
+  text-align: center;
 }
 .size-setting input {
   background-color: #bbbbbb;
+  border-radius: 5px;
 }
 .size-setting label {
   color: #ffffff;
@@ -71,4 +72,10 @@ button:focus {
 
 button:active {
   transform: scale(0.99);
+}
+.pressed{
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+    background-color: #777777;
 }
