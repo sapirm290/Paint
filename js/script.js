@@ -1,3 +1,4 @@
+"use strict";
 const canvas = document.getElementById("canvas");
 const colorChoices = document.getElementsByClassName("color-choice");
 var canvasWidth = $("#canvasWidth").val();
@@ -15,9 +16,9 @@ function changeColor(eventObject) {
 $(".color-choice").click(changeColor);
 
 function drawPoint(x, y) {
-  if (x > 3 && y > 3 && x < (canvasWidth -3) && y < (canvasHeight-3)){
-    canvas.innerHTML += `<span class='dot' style='left:${x -
-      brushSize / 2}px;top:${y -
+  if (x > 3 && y > 3 && x < canvasWidth - 3 && y < canvasHeight - 3) {
+    canvas.innerHTML += `<span class='dot' style='left:${x -8  -
+      brushSize / 2}px;top:${y - 6 -
       brushSize /
         2}px; width:${brushSize}px; height:${brushSize}px; background-color:${brushColor}';z-index:${zindex}></span>`;
     zindex--;
@@ -62,6 +63,7 @@ function updateCanvasWidth() {
   else if (val > 1500) canvasWidth = 1500;
   else if (!isNaN(val)) canvasWidth = val;
   $("#canvas").css("width", `${canvasWidth}`);
+  $(this).val(canvasWidth);
 }
 function updateCanvasHeight() {
   var val = $(this).val();
@@ -69,6 +71,7 @@ function updateCanvasHeight() {
   else if (val > 800) canvasHeight = 800;
   else if (!isNaN(val)) canvasHeight = val;
   $("#canvas").css("height", `${canvasHeight}`);
+  $(this).val(canvasHeight);
 }
 $("#canvasWidth").on("change", updateCanvasWidth);
 $("#canvasHeight").on("change", updateCanvasHeight);
@@ -95,7 +98,5 @@ function startEraserMode() {
 $("#eraser").on("click", startEraserMode);
 $("#pen").on("click", endEraserMode);
 
-
 $("#canvasWidth").trigger("change");
-$("#canvasWidth").trigger("change");
-
+$("#canvasHeight").trigger("change");
