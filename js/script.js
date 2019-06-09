@@ -1,4 +1,3 @@
-"use strict";
 const canvas = document.getElementById("canvas");
 const colorChoices = document.getElementsByClassName("color-choice");
 var canvasWidth = $("#canvasWidth").val();
@@ -17,23 +16,30 @@ $(".color-choice").click(changeColor);
 
 function drawPoint(x, y) {
   if (x > 3 && y > 3 && x < canvasWidth - 3 && y < canvasHeight - 3) {
-    canvas.innerHTML += `<span class='dot' style='left:${x -8  -
-      brushSize / 2}px;top:${y - 6 -
+    if (degrees % 360 == 180) {
+      x = canvasWidth - x ;
+      y = canvasHeight - y ;
+    }
+    canvas.innerHTML += `<span class='dot' style='left:${x -
+      8 -
+      brushSize / 2}px;top:${y -
+      6 -
       brushSize /
         2}px; width:${brushSize}px; height:${brushSize}px; background-color:${brushColor}';z-index:${zindex}></span>`;
     zindex--;
   }
 }
 function startPainting(eventObject) {
-  drawPoint(eventObject.layerX, eventObject.layerY);
+  drawPoint(eventObject.pageX - $(this).offset().left, eventObject.pageY - $(this).offset().top);
   canvas.addEventListener("mousemove", keepPainting);
   document.addEventListener("mouseup", stopPainting);
 }
 function keepPainting(eventObject) {
-  drawPoint(eventObject.layerX, eventObject.layerY);
+  drawPoint(eventObject.pageX - $(this).offset().left, eventObject.pageY - $(this).offset().top);
 }
 function stopPainting(eventObject) {
   canvas.removeEventListener("mousemove", keepPainting);
+  document.removeEventListener("mouseup", stopPainting);
 }
 canvas.addEventListener("mousedown", startPainting);
 
@@ -42,11 +48,18 @@ document.getElementById("clear").addEventListener("click", () => {
 });
 
 function enLargeText() {
-  if (brushSize < 10) brushSize++;
+  if (brushSize < 12) brushSize++;
 }
 function reduceText() {
   if (brushSize > 2) brushSize--;
 }
+$(window).bind("mousewheel", function(event) {
+  if (event.originalEvent.wheelDelta >= 0) {
+    enLargeText();
+  } else {
+    reduceText();
+  }
+});
 $("#Plus").click(enLargeText);
 $("#Minus").click(reduceText);
 
@@ -57,29 +70,34 @@ function update(jscolor) {
 }
 
 function updateCanvasWidth() {
-  var oldWidth =  canvasWidth;
+  var oldWidth = canvasWidth;
   var val = $(this).val();
   if (val < 200) canvasWidth = 200;
   else if (val > 1500) canvasWidth = 1500;
   else if (!isNaN(val)) canvasWidth = val;
-  var ratio = canvasWidth/oldWidth;
-  function adjustWidth(){
-    $(this).css("left",parseInt($(this).css("left"))*ratio);
+  var ratio = canvasWidth / oldWidth;
+  function adjustWidth() {
+    $(this).css("left", parseInt($(this).css("left")) * ratio);
   }
   $("#canvas span").each(adjustWidth);
   $("#canvas").css("width", `${canvasWidth}`);
   $(this).val(canvasWidth);
+  if (
+    parseInt($("#canvas").css("width")) >
+    parseInt($("#canvasWrapper").css("width"))
+  ) {
+    $("#canvas").css("width", $("#canvasWrapper").css("width"));
+  }
 }
 function updateCanvasHeight() {
-  var oldHeight =  canvasHeight;
-
+  var oldHeight = canvasHeight;
   var val = $(this).val();
   if (val < 100) canvasHeight = 100;
   else if (val > 800) canvasHeight = 800;
   else if (!isNaN(val)) canvasHeight = val;
-  var ratio = canvasHeight/oldHeight;
-  function adjustHeight(){
-    $(this).css("top",parseInt($(this).css("top"))*ratio);
+  var ratio = canvasHeight / oldHeight;
+  function adjustHeight() {
+    $(this).css("top", parseInt($(this).css("top")) * ratio);
   }
   $("#canvas span").each(adjustHeight);
   $("#canvas").css("height", `${canvasHeight}`);
@@ -87,6 +105,7 @@ function updateCanvasHeight() {
 }
 $("#canvasWidth").on("change", updateCanvasWidth);
 $("#canvasHeight").on("change", updateCanvasHeight);
+
 function eraseDot(eventObject) {
   $(this).remove();
 }
@@ -101,7 +120,7 @@ function stopErasing() {
 function endEraserMode() {
   canvas.addEventListener("mousedown", startPainting);
   $("#canvas").off("mousedown", startErasing);
-  $(this).addClass("pressed");
+  $("#pen").addClass("pressed");
   $("#eraser").removeClass("pressed");
 }
 function startEraserMode() {
@@ -114,5 +133,8 @@ function startEraserMode() {
 $("#eraser").on("click", startEraserMode);
 $("#pen").on("click", endEraserMode);
 
-$("#canvasWidth").trigger("change");
-$("#canvasHeight").trigger("change");
+var degrees = 0;
+$("#flip").click(function rotate() {
+  $("#canvas")  .css({ transform: "rotate(" + (180 + degrees) + "deg)" });
+  degrees += 180;
+});
