@@ -13,64 +13,60 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body oncontextmenu="return false;" ></body>
+<body></body>
 <!--  -->
 
-  <div class="container">
-    <nav class="row tools ">
-      <div class="col tool pt-1"><button id="pen"><img src="./images/okpen.svg" alt="Pen"></button></div>
-      <div class="col tool pt-1"><button id="eraser"><img src="./images/eraser.png" alt="Pen"></button></div>
-      <div class="col tool pt-0 brush-size-button"><button id="Plus">+</button>
+<div class="container">
+  <nav class="row tools ">
+    <div class="col tool pt-1" id="pen"><img src="./images/okpen.svg" alt="Pen"></div>
+    <div class="col tool pt-1" id="eraser"><img src="./images/eraser.png" alt="Eraser"></div>
+    <div class="col tool pt-0 brush-size-button" id="Plus">+
+    </div>
+    <div class="col tool pt-0 brush-size-button" id="Minus">-</div>
+    <div class="col-sm tool pt-1" id="clear">Clear&nbspcanvas</div>
+    <div class="col-sm tool pt-1 size-setting">
+      <div class="row flex-nowrap"><label for="canvasWidth" class="col">width</label>
+        <input class="" type="number" id="canvasWidth" value="500"></div>
+    </div>
+    <div class="col-sm tool pt-1 size-setting">
+      <div class="row flex-nowrap"><label for="canvasHeight" class="col">Height</label>
+        <input class=" " type="number" id="canvasHeight" value="500"></div>
+    </div>
+    <div class="col tool pt-1" id="flip">Flip</div>
+  </nav>
+
+  <div class="row p-2" id='header' style="background-color: #727dc7;"></div>
+  <article class="row justify-content-center p-3" id="canvasWrapper">
+    <div class="col-auto">
+      <div class="row" id="canvas"></div>
+      <div class="row justify-content-center">
+        <h2>Let your art out</h2>
       </div>
-      <div class="col tool pt-0 brush-size-button"><button
-          id="Minus">-</button></div>
-      <div class="col-sm tool pt-1"> <button id="clear">Clear&nbspcanvas</button></div>
-      <div class="col-sm tool pt-1 size-setting">
-        <div class="row flex-nowrap"><label for="canvasWidth" class="col">width</label>
-          <input class="" type="number" id="canvasWidth" value="800"></div>
-      </div>
-      <div class="col-sm tool pt-1 size-setting">
-        <div class="row flex-nowrap"><label for="canvasHeight" class="col">Height</label>
-          <input class=" " type="number" id="canvasHeight" value="500"></div>
-      </div>
-      <div class="col tool pt-1"><button id="flip">Flip</button></div>
-    </nav>
+    </div>
+  </article>
+  <footer class="row">
+    <div class="col color-choice" style="background-color: #DFC1D4"></div>
+    <div class="col color-choice" style="background-color: #E6D91C"></div>
+    <div class="col color-choice" style="background-color: #727DC7"></div>
+    <div class="col color-choice" style="background-color: #E1543D"></div>
+    <div class="col color-choice" style="background-color: #397D49"></div>
+    <input class="jscolor col color-choice mx-2" onchange="update(this.jscolor)" value="cc66ff">
 
-    <div class="row p-2" id='header' style="background-color: #727dc7;"></div>
-    <article class="row justify-content-center p-3" id="canvasWrapper">
-      <div class="col-auto">
-        <div class="row" id="canvas"></div>
-        <div class="row justify-content-center">
-          <h2>Let your art out</h2>
-        </div>
-      </div>
-    </article>
-    <footer class="row">
-      <div class="col color-choice" style="background-color: #DFC1D4"></div>
-      <div class="col color-choice" style="background-color: #E6D91C"></div>
-      <div class="col color-choice" style="background-color: #727DC7"></div>
-      <div class="col color-choice" style="background-color: #E1543D"></div>
-      <div class="col color-choice" style="background-color: #397D49"></div>
-      <input class="jscolor col color-choice mx-2" onchange="update(this.jscolor)" value="cc66ff">
-
-    </footer>
-  </div>
+  </footer>
+</div>
 
 
 
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-    integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-    integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-    crossorigin="anonymous"></script>
-  <script src="js/lib/jscolor.js"></script>
-  <script src="js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+  integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+  integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script src="js/lib/jscolor.js"></script>
+<script src="js/script.js"></script>
 
 
 </body>

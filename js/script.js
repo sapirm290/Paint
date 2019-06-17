@@ -15,10 +15,10 @@ function changeColor(eventObject) {
 $(".color-choice").click(changeColor);
 
 function drawPoint(x, y) {
-  if (x > 3 && y > 3 && x < canvasWidth - 3 && y < canvasHeight - 3) {
+  if (x > 14 && y > 12 && x < canvasWidth  && y < canvasHeight) {
     if (degrees % 360 == 180) {
-      x = canvasWidth - x ;
-      y = canvasHeight - y ;
+      x = canvasWidth - x;
+      y = canvasHeight - y;
     }
     canvas.innerHTML += `<span class='dot' style='left:${x -
       8 -
@@ -30,12 +30,12 @@ function drawPoint(x, y) {
   }
 }
 function startPainting(eventObject) {
-  drawPoint(eventObject.pageX - $(this).offset().left, eventObject.pageY - $(this).offset().top);
+  drawPoint(eventObject.layerX, eventObject.layerY);
   canvas.addEventListener("mousemove", keepPainting);
   document.addEventListener("mouseup", stopPainting);
 }
 function keepPainting(eventObject) {
-  drawPoint(eventObject.pageX - $(this).offset().left, eventObject.pageY - $(this).offset().top);
+  drawPoint(eventObject.layerX, eventObject.layerY);
 }
 function stopPainting(eventObject) {
   canvas.removeEventListener("mousemove", keepPainting);
@@ -106,7 +106,7 @@ function updateCanvasHeight() {
 $("#canvasWidth").on("change", updateCanvasWidth);
 $("#canvasHeight").on("change", updateCanvasHeight);
 
-function eraseDot(eventObject) {
+function eraseDot() {
   $(this).remove();
 }
 function startErasing() {
@@ -135,6 +135,6 @@ $("#pen").on("click", endEraserMode);
 
 var degrees = 0;
 $("#flip").click(function rotate() {
-  $("#canvas")  .css({ transform: "rotate(" + (180 + degrees) + "deg)" });
+  $("#canvas").css({ transform: "rotate(" + (180 + degrees) + "deg)" });
   degrees += 180;
 });
